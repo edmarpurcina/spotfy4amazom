@@ -3,7 +3,6 @@ import base64
 import sys, json, getpass
 import requests
 
-
 def get_playlist_name(headers):
     url = "https://api.spotify.com/v1/users/edmarpurcina/playlists"
     response = requests.request("GET", url, headers=headers)
@@ -38,28 +37,37 @@ def json_explore_playlist(jsotext, headers):
     print("Total de Musicas: ",cont)
     return
 
-def get_token_spoty():
-    usuario = input('Usuario:')
-    senha = input('Senha: ')
-    base = usuario+senha
-    print(base)
-    basic = base64.b64encode(base.encode())
-    print(str(basic))
-    url = 'https://api.spotify.com/api/token'
+def get_token_spotify():
+    usuario = 'b0c3b87a970c4df797359dd864113be5' #input('Usuario:')
+    senha = 'be33913f49ea4361b0d7473d30e7eb66' #input('Senha: ')
+    #usuario = input('Usuario: ')
+    #senha = input('Senha: ')
+
+    base = usuario+':'+senha
+    #print(base)
+    basic = base64.b64encode(str(base).encode())
+    #print(str(basic, 'utf-8'))
+    url = 'https://accounts.spotify.com/api/token'
     headers = {
-        'Autorization': "Basic "+str(basic),
+        'Authorization': "Basic " + str(basic,'utf-8'),
         'Content-Type': "application/x-www-form-urlencoded"
     }
     payload = "grant_type=client_credentials"
 
-    response = requests.request("POST", url, data=payload, headers=headers )
-    print(response.text)
-    exit()
-get_token_spoty()
+    response = requests.request("POST", url, data=payload, headers=headers)
+    #print(response.text)
+    token_josn = json.loads(response.text)
+    token = token_josn['access_token']
+    print(token)
+
+    return token
+
+token = 'BQDmrCsEY6GSYDfFuOstbmAtTpdEFGGjVjUiW4A6MCOwXKjEayKojaGalrPGDHgmY2QfkWrk1JmWoej8hXXtyp81aUka2FWM-E9xRBVmeGdhiR4alMObv5Cvp9tJJVQZBaXW30Ir-tPW_r4unQNCf19IGgmGh2L9TJP_F8DWMMGEPofc3MleS8KkrY-oJzBi0Pd9I-Gkge7oLSSLBqhWC-qmNpYE9m3Uz-6YTVHTfhR1NMjaVD0eBJDtTcU3EFSTLFD4jE28nbzk-juhDV8' #get_token_spotify()
+
 headers = {
      'Accept': ": application/json",
      'Content-Type': ": application/json",
-     'Authorization': ': Bearer BQD8e9d_xsKwjrBAJTgCekzr53kqYWcSOG2jAVIFgoEEUylINT6oU3J-3c1prqKygjl4HwoWwdGYjnzwfb3-HY_MbqCjB3068ms_97W7jj29FohRCyinxWyEVqdrg5GEX5Q6qNIYuf6UGJ95_lFnWrM30z9vA6-6zAxJXskFsmQwbh7pA9c0aXXvu1VCaNnxlzE3_mS_YMz3IrsmuCk8n4j2t04bs9HHaZgBoxVEQD8U56_c3ntl_GTjkIcgAoBf5xyF4176UGbF3dcr66s"'
+     'Authorization': ': Bearer ' + token
  }
 
 jsontext = get_playlist_name(headers)
