@@ -37,7 +37,7 @@ def json_explore_playlist(jsotext, headers):
     print("Total de Musicas: ",cont)
     return
 
-def get_token_spotify():
+def get_token_spotify(): # Server to Server Request
     usuario = 'b0c3b87a970c4df797359dd864113be5' #input('Usuario:')
     senha = 'be33913f49ea4361b0d7473d30e7eb66' #input('Senha: ')
     #usuario = input('Usuario: ')
@@ -62,13 +62,14 @@ def get_token_spotify():
 
     return token
 
-token = 'BQDmrCsEY6GSYDfFuOstbmAtTpdEFGGjVjUiW4A6MCOwXKjEayKojaGalrPGDHgmY2QfkWrk1JmWoej8hXXtyp81aUka2FWM-E9xRBVmeGdhiR4alMObv5Cvp9tJJVQZBaXW30Ir-tPW_r4unQNCf19IGgmGh2L9TJP_F8DWMMGEPofc3MleS8KkrY-oJzBi0Pd9I-Gkge7oLSSLBqhWC-qmNpYE9m3Uz-6YTVHTfhR1NMjaVD0eBJDtTcU3EFSTLFD4jE28nbzk-juhDV8' #get_token_spotify()
-
+# token temporario expira a cada 3600 s
+#token = 'BQDmrCsEY6GSYDfFuOstbmAtTpdEFGGjVjUiW4A6MCOwXKjEayKojaGalrPGDHgmY2QfkWrk1JmWoej8hXXtyp81aUka2FWM-E9xRBVmeGdhiR4alMObv5Cvp9tJJVQZBaXW30Ir-tPW_r4unQNCf19IGgmGh2L9TJP_F8DWMMGEPofc3MleS8KkrY-oJzBi0Pd9I-Gkge7oLSSLBqhWC-qmNpYE9m3Uz-6YTVHTfhR1NMjaVD0eBJDtTcU3EFSTLFD4jE28nbzk-juhDV8'
+token = get_token_spotify()
 headers = {
-     'Accept': ": application/json",
-     'Content-Type': ": application/json",
-     'Authorization': ': Bearer ' + token
- }
+    'Accept': ": application/json",
+    'Content-Type': ": application/json",
+    'Authorization': ': Bearer ' + token
+}
 
 jsontext = get_playlist_name(headers)
 #playlist = json_explore_playlist(jsontext, headers)
