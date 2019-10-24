@@ -4,9 +4,9 @@ import sys, json, getpass
 import requests
 
 def get_playlist_name(headers):
-    url = "https://api.spotify.com/v1/users/edmarpurcina/playlists"
+    url = "https://api.spotify.com/v1/users/playlists"
     response = requests.request("GET", url, headers=headers)
-    #print(response.text)
+    print(response.text)
 
     json_explore_playlist(response.text, headers)
 
@@ -38,8 +38,8 @@ def json_explore_playlist(jsotext, headers):
     return
 
 def get_token_spotify(): # Server to Server Request
-    usuario = 'b0c3b87a970c4df797359dd864113be5' #input('Usuario:')
-    senha = 'be33913f49ea4361b0d7473d30e7eb66' #input('Senha: ')
+    usuario = 'usuario api spotify'
+    senha = 'senha api spotify'
     #usuario = input('Usuario: ')
     #senha = input('Senha: ')
 
@@ -59,11 +59,11 @@ def get_token_spotify(): # Server to Server Request
     token_josn = json.loads(response.text)
     token = token_josn['access_token']
     print(token)
-
+    #exit()
     return token
 
 # token temporario expira a cada 3600 s
-#token = 'BQDmrCsEY6GSYDfFuOstbmAtTpdEFGGjVjUiW4A6MCOwXKjEayKojaGalrPGDHgmY2QfkWrk1JmWoej8hXXtyp81aUka2FWM-E9xRBVmeGdhiR4alMObv5Cvp9tJJVQZBaXW30Ir-tPW_r4unQNCf19IGgmGh2L9TJP_F8DWMMGEPofc3MleS8KkrY-oJzBi0Pd9I-Gkge7oLSSLBqhWC-qmNpYE9m3Uz-6YTVHTfhR1NMjaVD0eBJDtTcU3EFSTLFD4jE28nbzk-juhDV8'
+#token = ''
 token = get_token_spotify()
 headers = {
     'Accept': ": application/json",
